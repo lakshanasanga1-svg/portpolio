@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asanga Lakshan | Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #07090e;
+            --card-bg: rgba(18, 22, 33, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-blue: #00f0ff;
+            --accent-blue-glow: rgba(0, 240, 255, 0.35);
+            --accent-orange: #ff6b00;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            --font-main: 'Outfit', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Fullscreen Background Video */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            opacity: 0.2;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Ambient Glow Background Orbs */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 240, 255, 0.15);
+        }
+
+        .glow-2 {
+            bottom: 20%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 107, 0, 0.1);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        nav {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Container Layout */
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .section-num {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.15);
+            -webkit-text-stroke: 1px var(--accent-blue);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Hero / Cover Section */
+        #cover {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(180deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin-bottom: 2.5rem;
+        }
+
+        .software-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .exp-box {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .exp-number {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            line-height: 1;
+        }
+
+        .exp-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .company-tag {
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent-blue-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--accent-blue-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-blue);
+        }
+
+        /* Cards & Grid Styling */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
+        }
+
+        /* Media Card Styling (for Videos) */
+        .media-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .media-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        .media-preview {
+            width: 100%;
+            height: 280px;
+            background: #1a1e2b;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .video-container {
+            cursor: pointer;
+        }
+
+        .media-preview .card-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* Pure Image Display (No Cards / Borders) */
+        .graphic-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        /* Play Button Overlay */
+        .play-btn {
+            position: absolute;
+            z-index: 2;
+            width: 55px;
+            height: 55px;
+            background: rgba(0, 240, 255, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px var(--accent-blue-glow);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .media-card:hover .play-btn {
+            transform: scale(1.15);
+            background: var(--accent-blue);
+        }
+
+        .media-body {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .media-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        /* POPUP MODAL STYLES (NO CARDS, TRANSPARENT BACKDROP) */
+        .media-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .media-modal.active {
+            display: flex;
+            animation: modalFadeIn 0.3s ease-out forwards;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 85vh;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            border-radius: 0;
+            object-fit: contain;
+            outline: none;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            line-height: 1;
+            z-index: 2001;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .modal-close:hover {
+            color: var(--accent-blue);
+            transform: scale(1.15);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* External Drive Banner */
+        .drive-banner {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 107, 0, 0.1));
+            border: 1px solid var(--accent-blue);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 3rem;
+            gap: 2rem;
+        }
+
+        .drive-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .drive-info p {
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            text-align: left;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .contact-val {
+            font-size: 0.95rem;
+            color: #fff;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.8rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .drive-banner { flex-direction: column; text-align: center; }
+            .mobile-toggle { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--bg-color);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                transition: 0.4s;
+            }
+            .nav-links.active { left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Video (10% Opacity) -->
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="4.webm" type="video/webm">
+    </video>
+
+    <!-- Background Glows -->
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+
+    <!-- Navigation Header -->
+    <header>
+        <nav>
+            <a href="#cover" class="logo"><i class="fa-solid fa-clapperboard"></i> ASANGA<span>.</span></a>
+            <div class="mobile-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#video-projects">Video Projects</a></li>
+                <li><a href="#graphic-projects">Graphic Design</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- PAGE 01: COVER PAGE -->
+    <section id="cover" class="section-container">
+        <div class="hero-grid">
+            <div class="reveal">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-bolt"></i> Visual Storyteller & Creator
+                </div>
+                <h1 class="hero-title">ASANGA LAKSHAN</h1>
+                <div class="hero-subtitle">VIDEO EDITOR | PHOTOGRAPHER | VIDEOGRAPHER | GRAPHIC DESIGNER | CONTENT CREATOR</div>
+                <p class="hero-desc">
+                    Transforming Ideas Into Engaging Visual Stories. Crafting high-converting promotional videos, dynamic event highlights, and striking brand creatives.
+                </p>
+                <div class="btn-group">
+                    <a href="#video-projects" class="btn btn-primary"><i class="fa-solid fa-play"></i> View My Work</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fa-regular fa-envelope"></i> Get In Touch</a>
+                </div>
+                
+                <div class="software-pills">
+                    <div class="pill"><i class="fa-solid fa-film"></i> Adobe Premiere Pro</div>
+                    <div class="pill"><i class="fa-solid fa-image"></i> Adobe Photoshop</div>
+                    <div class="pill"><i class="fa-solid fa-video"></i> CapCut</div>
+                    <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> DaVinci Resolve</div>
+                </div>
+            </div>
+
+            <div class="hero-card reveal">
+                <div class="exp-box">
+                    <div class="exp-number">3.2</div>
+                    <div class="exp-text">Years of Professional Experience</div>
+                </div>
+                <div class="company-tag">
+                    <i class="fa-solid fa-building"></i> Currently Working at Bally's Casino Colombo	<p>&nbsp;</p>
+                </div>
+	
+                <div class="company-tag">
+                    <i class="fa-solid fa-building"></i> part time Working at JELLY BEANS PRODUCTION	<p>&nbsp;</p>
+                </div>
+	
+                <div class="company-tag">
+                    <i class="fa-solid fa-building"></i> Working as a FREELANCER
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 02: ABOUT ME -->
+    <section id="about" class="section-container">
+        <div class="section-header reveal">
+            <span class="section-num">02</span>
+            <h2 class="section-title">About Me</h2>
+        </div>
+        <div class="card reveal">
+            <p class="about-highlight" style="font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 1rem;">
+                Creative Video Editor and Graphic Designer specializing in social media content, promotional videos, event highlights, thumbnails, posters, and digital marketing creatives.
+            </p>
+            <p class="about-content" style="color: var(--text-muted);">
+                Passionate about creating visually engaging content that captures attention and delivers results across digital platforms. Experienced in producing content for entertainment, hospitality, events, and social media marketing campaigns. Focused on storytelling, visual creativity, and delivering high-quality content through modern video editing and graphic design workflows.
+            </p>
+        </div>
+    </section>
+
+    <!-- PAGE 03: SOFTWARE & SKILLS -->
+    <section id="skills" class="section-container">
+        <div class="section-header reveal">
+            <span class="section-num">03</span>
+            <h2 class="section-title">Software & Skills</h2>
+        </div>
+        <div class="grid-2">
+            <div class="card reveal">
+                <h3 style="margin-bottom: 1.5rem; color: var(--accent-blue);"><i class="fa-solid fa-laptop-code"></i> Software & Tools</h3>
+                <ul class="skill-list" style="list-style: none;">
+                    <li style="margin-bottom: 1rem;"><i class="fa-solid fa-check" style="color: var(--accent-blue);"></i> Adobe Premiere Pro</li>
+                    <li style="margin-bottom: 1rem;"><i class="fa-solid fa-check" style="color: var(--accent-blue);"></i> Adobe Photoshop</li>
+                    <li style="margin-bottom: 1rem;"><i class="fa-solid fa-check" style="color: var(--accent-blue);"></i> CapCut</li>
+                    <li style="margin-bottom: 1rem;"><i class="fa-solid fa-check" style="color: var(--accent-blue);"></i> DaVinci Resolve</li>
+                    <li style="margin-bottom: 1rem;"><i class="fa-solid fa-check" style="color: var(--accent-blue);"></i> Canva</li>
+ 		    <li style="margin-bottom: 1rem;"><i class="fa-solid fa-check" style="color: var(--accent-blue);"></i> MS office</li>
+
+                </ul>
+            </div>
+            <div class="card reveal">
+                <h3 style="margin-bottom: 1.5rem; color: var(--accent-blue);"><i class="fa-solid fa-sliders"></i> Core Skills</h3>
+                <ul class="skill-list" style="list-style: none;">
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Professional Video Editing</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Social Media Content Creation</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Event Highlight Editing</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Promotional Video Production</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Thumbnail & Poster Design</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Photography & Videog</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> Short-form Content (Reels & Shorts)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 04: VIDEO EDITING PROJECTS -->
+    <section id="video-projects" class="section-container">
+        <div class="section-header reveal">
+            <span class="section-num">04</span>
+            <h2 class="section-title">Video Editing Projects</h2>
+        </div>
+
+        <div class="grid-3">
+            <!-- Promotional Videos -->
+            <div class="media-card reveal">
+                <div class="media-preview video-container" data-video-src="1.webm">
+                    <video class="card-video" preload="metadata" playsinline muted>
+                        <source src="1.webm" type="video/webm">
+                    </video>
+                    <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-title">Promotional Videos</h4>
+                </div>
+            </div>
+
+            <!-- Event Highlights -->
+            <div class="media-card reveal">
+                <div class="media-preview video-container" data-video-src="2.webm">
+                    <video class="card-video" preload="metadata" playsinline muted>
+                        <source src="2.webm" type="video/webm">
+                    </video>
+                    <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-title">Event Highlights</h4>
+                </div>
+            </div>
+
+            <!-- Short Form Content -->
+            <div class="media-card reveal">
+                <div class="media-preview video-container" data-video-src="3.webm">
+                    <video class="card-video" preload="metadata" playsinline muted>
+                        <source src="3.webm" type="video/webm">
+                    </video>
+                    <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-title">Short Form Content</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Drive Direct Link Banner -->
+        <div class="drive-banner reveal">
+            <div class="drive-info">
+                <h3><i class="fa-brands fa-google-drive" style="color: var(--accent-blue);"></i> Full Video Portfolio Drive</h3>
+                <p>Access and stream all portfolio video files directly via Google Drive.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1CkAOACV9zoxma07u4n4HIERNGVQNPi8e?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary">
+                <i class="fa-solid fa-folder-open"></i> Open Google Drive
+            </a>
+        </div>
+    </section>
+
+    <!-- PAGE 05: GRAPHIC DESIGN PROJECTS -->
+    <section id="graphic-projects" class="section-container">
+        <div class="section-header reveal">
+            <span class="section-num">05</span>
+            <h2 class="section-title">Graphic Design Projects</h2>
+        </div>
+
+        <div class="grid-3">
+            <img src="IMG 03.png" alt="Sinhala & Tamil New Year Design" class="graphic-img reveal">
+            <img src="IMG 02.jpg" alt="Video Thumbnail Design" class="graphic-img reveal">
+            <img src="IMG 01.jpg" alt="Maha Shivratri Marketing Material" class="graphic-img reveal">
+        </div>
+    </section>
+
+    <!-- PAGE 06 & 07: EXPERIENCE & HIGHLIGHTS -->
+    <section id="experience" class="section-container">
+        <div class="grid-2">
+            <div>
+                <div class="section-header reveal">
+                    <span class="section-num">06</span>
+                    <h2 class="section-title">Experience</h2>
+                </div>
+                <div class="card reveal">
+                    <div style="font-size: 1.3rem; font-weight: 700; color: #fff;">Video Editor | Content Creator | Graphic Designer</div>
+                    <div style="color: var(--accent-blue); font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">Bally's Casino Colombo (1.5 Years)</div>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                        Creating high-quality visual content for entertainment, hospitality, and promotional campaigns across digital platforms.
+                    </p>
+
+		    <div style="font-size: 1.3rem; font-weight: 700; color: #fff;">Video Editor | Videographer | Photographer </div>
+                    <div style="color: var(--accent-blue); font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">Freelance (3.2 Years)</div>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                       Working independently with clients and businesses to create engaging visual content for digital platforms.
+                    </p>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="section-header reveal">
+                    <span class="section-num">07</span>
+                    <h2 class="section-title">Highlights</h2>
+                </div>
+                <div class="card reveal">
+                    <h3 style="margin-bottom: 1rem; color: var(--accent-orange);"><i class="fa-solid fa-trophy"></i> Key Achievements</h3>
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-star" style="color: var(--accent-orange);"></i> Produced promotional content for Bally's Casino Colombo</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-star" style="color: var(--accent-orange);"></i> Developed high-performing social media campaign visuals</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-star" style="color: var(--accent-orange);"></i> Edited major entertainment & live celebrity show highlights</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 08: CONTACT -->
+    <section id="contact" class="section-container">
+        <div class="contact-box reveal">
+            <div class="hero-badge" style="margin-bottom: 1rem;">Let's Work Together</div>
+            <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem;">ASANGA LAKSHAN</h2>
+            <p style="color: var(--accent-blue); font-weight: 600; margin-bottom: 2rem;">VIDEO EDITOR | PHOTOGRAPHER | VIDEOGRAPHER | GRAPHIC DESIGNER | CONTENT CREATOR</p>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <div class="contact-label">Phone</div>
+                        <a href="tel:+94XXXXXXXXX" class="contact-val">+94 76 318 9588</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <div class="contact-label">Email</div>
+                        <a href="mailto:yourmail@example.com" class="contact-val">asangalakshan1@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fa-brands fa-instagram"></i>
+                    <div>
+                        <div class="contact-label">Instagram</div>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="contact-val">@lakshan_asanga</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <div class="contact-label">Location</div>
+                        <span class="contact-val"> Matara , Sri Lanka</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 2rem;">
+                Thank You For Viewing My Portfolio!
+            </p>
+        </div>
+    </section>
+
+    <!-- TRANSPARENT VIDEO POPUP MODAL (NO CARDS / BORDERS) -->
+    <div id="videoModal" class="media-modal">
+        <span class="modal-close" id="videoModalClose">&times;</span>
+        <video class="modal-content" id="modalVideo" controls autoplay playsinline></video>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Video Lightbox Modal Logic
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const videoModalClose = document.getElementById('videoModalClose');
+
+        document.querySelectorAll('.video-container').forEach(container => {
+            container.addEventListener('click', () => {
+                const videoSrc = container.getAttribute('data-video-src');
+                if (videoSrc) {
+                    modalVideo.src = videoSrc;
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    modalVideo.play();
+                }
+            });
+        });
+
+        function closeVideoModal() {
+            videoModal.classList.remove('active');
+            modalVideo.pause();
+            modalVideo.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        videoModalClose.addEventListener('click', closeVideoModal);
+
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) closeVideoModal();
+        });
+
+        // Global ESC key event handling
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (videoModal.classList.contains('active')) closeVideoModal();
+            }
+        });
+    </script>
+</body>
+</html>
